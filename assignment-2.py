@@ -1,10 +1,17 @@
+# Importing API
 import pokebase as pb
 
-# Function which gets the user to input a number for which generation of pokemons they want to receive, then checks if it is between 1-9
+# Function which gets the user to input a number for which generation of pokemons they want to receive, then checks if it is a number between 1-9
+# If it is a letters or a number not between 1-9, returns x which triggers a while loop where the function is called prompting the user to keep inputting until a number 1-9 is entered
 def pokemon_gen_choice():
-    pokemon_input = int(input("Choose a generation of pokemon from 1-9: "))
-    if 1 <= pokemon_input <= 9:
-        return pokemon_input
+    pokemon_input = input("Choose a generation of pokemon from 1-9: ")
+    if pokemon_input.isnumeric():
+        int_pokemon_input = int(pokemon_input)
+    else:
+        print("This is not a number between 1 and 9, please try again!")
+        return "x"
+    if 1 <= int_pokemon_input <= 9:
+        return int_pokemon_input
     else:
         print("This is not a number between 1 and 9, please try again!")
         return "x"
@@ -73,9 +80,9 @@ while not pokemon_first_letter_list_full:
 score_choice = power_score(pokemon_first_letter_list_full)
 
 # If the function return x which means the user typed in a pokemon not in the generation and first name list, prompts the user to try again (in a while loop so will keep repeating until the user types in a pokemon
-# in the list
+# in the list)
 while score_choice == "x":
     score_choice = power_score(pokemon_first_letter_list_full)
 
 # Prints out the power score for the pokemon the user typed in
-print(f"The power score for{score_choice} is {pb.pokemon(score_choice.lower()).base_experience}!")
+print(f"The power score for {score_choice} is {pb.pokemon(score_choice.lower()).base_experience}!")
