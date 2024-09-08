@@ -29,7 +29,6 @@ def pokemon_first_letter(user_choice, pokemon_list):
 # Prints the list of all the pokemons in the generation with that first letter, and asks the user to guess which one has the highest power score, if they type in a pokemon in the list it returns that name, if the pokemon
 # is not in the list of the correct generation and first letter, returns x
 def power_score(pokemon_first_letter_list_full):
-    print("power score running")
     highest_score_choice = input(f"\nHere is the list of pokemons with that first letter: \n"
       f"{', '.join(pokemon_first_letter_list_full)}\n"
       f"Choose the pokemon you think has the highest power score! (this might take a few seconds): ").title()
