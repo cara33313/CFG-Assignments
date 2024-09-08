@@ -1,3 +1,4 @@
+# Importing API
 import pokebase as pb
 
 # Function which gets the user to input a number for which generation of pokemons they want to receive, then checks if it is a number between 1-9
@@ -79,7 +80,7 @@ while not pokemon_first_letter_list_full:
 score_choice = power_score(pokemon_first_letter_list_full)
 
 # If the function return x which means the user typed in a pokemon not in the generation and first name list, prompts the user to try again (in a while loop so will keep repeating until the user types in a pokemon
-# in the list
+# in the list)
 while score_choice == "x":
     score_choice = power_score(pokemon_first_letter_list_full)
 
