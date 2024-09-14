@@ -1,5 +1,10 @@
 # Importing API
+# Note to marker - run "pip install pokebase" to run this code
 import pokebase as pb
+
+# This code asks the user to input a number, then retrieves the names of all the pokemons from that generation
+# It then asks the user to type in a letter and gets all the pokemons from that generation with that first letter
+# The user can then pick one, and it will return the base power score for that pokemon
 
 # Function which gets the user to input a number for which generation of pokemons they want to receive, then checks if it is a number between 1-9
 # If it is a letters or a number not between 1-9, returns x which triggers a while loop where the function is called prompting the user to keep inputting until a number 1-9 is entered
