@@ -1,6 +1,4 @@
-# Importing API
-# Note to marker - run "pip install pokebase" to run this code
-import pokebase as pb
+import requests
 
 # This code asks the user to input a number, then retrieves the names of all the pokemons from that generation
 # It then asks the user to type in a letter and gets all the pokemons from that generation with that first letter
@@ -23,13 +21,13 @@ def pokemon_gen_choice():
 
 # Function which takes the first letter, and returns all the pokemons from that generation with that first letter
 # If a character which is not a letter, or more than one character typed in, returns a value which prompts the user to try again
-def pokemon_first_letter(user_choice, pokemon_list):
+def pokemon_first_letter(user_choice, pokemon_name_list):
     first_letter_choice = input(f"Here is a list of all the pokemons from generation {user_choice}, pick a first letter: ")
     pokemon_first_letter_list = []
 
     if first_letter_choice.isalpha() and len(first_letter_choice) == 1:
-        for i in pokemon_list:
-            if i[0] == first_letter_choice.upper():
+        for i in pokemon_name_list:
+            if i[0] == first_letter_choice.lower():
                 pokemon_first_letter_list.append(i)
             else: ''
         return pokemon_first_letter_list
@@ -40,10 +38,10 @@ def pokemon_first_letter(user_choice, pokemon_list):
 
 # Prints the list of all the pokemons in the generation with that first letter, and asks the user to guess which one has the highest power score, if they type in a pokemon in the list it returns that name, if the pokemon
 # is not in the list of the correct generation and first letter, returns x
-def power_score(pokemon_first_letter_list_full):
+def weight_selection(pokemon_first_letter_list_full):
     highest_score_choice = input(f"\nHere is the list of pokemons with that first letter: \n"
       f"{', '.join(pokemon_first_letter_list_full)}\n"
-      f"Choose the pokemon you think has the highest power score! (this might take a few seconds): ").title()
+      f"Choose the pokemon you think is the heaviest!: ").lower()
 
     if highest_score_choice in pokemon_first_letter_list_full:
        return highest_score_choice
@@ -59,35 +57,42 @@ user_choice = pokemon_gen_choice()
 while user_choice == "x":
     user_choice = pokemon_gen_choice()
 
-# Retrieving the pokemons from the generation the user typed in
-GENERATION = user_choice
-gen_resource = pb.generation(GENERATION)
+endpoint = f'https://pokeapi.co/api/v2/generation/{user_choice}'
+response = requests.get(endpoint)
+data = response.json()
+pokemon_list = data['pokemon_species']
+pokemon_name_list = []
 
 # Creating a list of the names of the pokemons in that generation
-pokemon_list = []
-for pokemon in gen_resource.pokemon_species:
-    pokemon_list.append(pokemon.name.title())
-    print(pokemon.name.title())
+for item in pokemon_list:
+    pokemon_name_list.append(item['name'])
+    print(item['name'])
 
 # Calling function to create a list of all pokemons in the generation beginning with that first letter
-pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_list)
+pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
 
 # If a single letter not typed in, calls the function for the user to try again (done as a while loop so this can be repeated until the user types in a letter correctly)
 while pokemon_first_letter_list_full == "x":
-    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_list)
+    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
 
 # If the letter the user typed in returns an empty list (if there are no pokemons in that generation with that first letter), recalls the function for the user to try again
 while not pokemon_first_letter_list_full:
     print("There are no pokemons in the generation with that first letter, please try again!")
-    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_list)
+    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
 
 # Calls function which gets the user to unput a pokemon from the list to get the power score
-score_choice = power_score(pokemon_first_letter_list_full)
+weight_choice = weight_selection(pokemon_first_letter_list_full)
 
 # If the function return x which means the user typed in a pokemon not in the generation and first name list, prompts the user to try again (in a while loop so will keep repeating until the user types in a pokemon
 # in the list)
-while score_choice == "x":
-    score_choice = power_score(pokemon_first_letter_list_full)
+while weight_choice == "x":
+    weight_choice = weight_selection(pokemon_first_letter_list_full)
 
 # Prints out the power score for the pokemon the user typed in
-print(f"The power score for {score_choice} is {pb.pokemon(score_choice.lower()).base_experience}!")
+
+endpoint = f'https://pokeapi.co/api/v2/pokemon/{weight_choice}/'
+response = requests.get(endpoint)
+data = response.json()
+weight = data['weight']
+
+print(f"The weight for {weight_choice} is {weight}!")
