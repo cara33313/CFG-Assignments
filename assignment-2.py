@@ -53,7 +53,7 @@ def weight_selection(pokemon_first_letter_list_full):
 # Retrieving the number the user typed in
 user_choice = pokemon_gen_choice()
 
-# Checking if the function returned that a number between 1-9 was not typed in, getting the user to try again
+# Checking if the function returned that a number between 1-9 was not typed in, if not gets the user to try again
 while user_choice == "x":
     user_choice = pokemon_gen_choice()
 
@@ -80,7 +80,7 @@ while not pokemon_first_letter_list_full:
     print("There are no pokemons in the generation with that first letter, please try again!")
     pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
 
-# Calls function which gets the user to unput a pokemon from the list to get the power score
+# Calls function which gets the user to input a pokemon from the list to get weight
 weight_choice = weight_selection(pokemon_first_letter_list_full)
 
 # If the function return x which means the user typed in a pokemon not in the generation and first name list, prompts the user to try again (in a while loop so will keep repeating until the user types in a pokemon
@@ -88,8 +88,7 @@ weight_choice = weight_selection(pokemon_first_letter_list_full)
 while weight_choice == "x":
     weight_choice = weight_selection(pokemon_first_letter_list_full)
 
-# Prints out the power score for the pokemon the user typed in
-
+# Retrieves then prints the weight for the selected pokemon
 endpoint = f'https://pokeapi.co/api/v2/pokemon/{weight_choice}/'
 response = requests.get(endpoint)
 data = response.json()
