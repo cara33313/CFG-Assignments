@@ -1,6 +1,6 @@
 import requests
 
-# Used to display emojis in the command line messages, and to meet requirments for an additional python module to be inported
+# Used to display emojis in the command line messages, so I meet the requirments for an additional python module to be imported
 # To use, run 'python -m pip install emoji --upgrade'
 import emoji
 
