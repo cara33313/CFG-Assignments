@@ -1,5 +1,5 @@
 -- CREATE DATABASE film_tracker;
-USE film_tracker;
+-- USE film_tracker;
 
 -- -- Creating three tables 
 -- CREATE TABLE films (
@@ -160,3 +160,6 @@ USE film_tracker;
 
 -- -- Tells you the number of films in the database
 -- SELECT COUNT(film_id) FROM films;
+
+-- -- Delete a user
+-- DELETE FROM users WHERE user_email = 'betty33@gmail.com';
