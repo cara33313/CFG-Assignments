@@ -1,5 +1,9 @@
 import requests
 
+# Used to display emojis in the command line messages, so I meet the requirments for an additional python module to be imported
+# To use, run 'python -m pip install emoji --upgrade'
+import emoji
+
 # This code asks the user to input a number, then retrieves the names of all the pokemons from that generation
 # It then asks the user to type in a letter and gets all the pokemons from that generation with that first letter
 # The user can then pick one, and it will return the base power score for that pokemon
@@ -94,4 +98,4 @@ response = requests.get(endpoint)
 data = response.json()
 weight = data['weight']
 
-print(f"The weight for {weight_choice} is {weight}!")
+print(emoji.emojize(f"The weight for {weight_choice} is {weight} :thumbs_up:!"))
