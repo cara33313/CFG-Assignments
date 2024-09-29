@@ -161,5 +161,5 @@
 -- -- Tells you the number of films in the database
 -- SELECT COUNT(film_id) FROM films;
 
--- -- Delete a user
+-- -- Delete a users information
 -- DELETE FROM users WHERE user_email = 'betty33@gmail.com';
