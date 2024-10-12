@@ -96,10 +96,20 @@
 #
 # print(f"The weight for {weight_choice} is {weight}!")
 
+<<<<<<< HEAD
 def customer_afford(cost):
     coins_list = [(2.0, 2), (1.0, 6), (0.5, 10), (0.2, 4), (0.1, 6), (0.05, 7), (0.02, 4), (0.01, 6)]
     leftover_cost = int(cost)
     coins_needed = []
+=======
+# Used to display emojis in the command line messages, so I meet the requirments for an additional python module to be imported
+# To use, run 'python -m pip install emoji --upgrade'
+import emoji
+
+# This code asks the user to input a number, then retrieves the names of all the pokemons from that generation
+# It then asks the user to type in a letter and gets all the pokemons from that generation with that first letter
+# The user can then pick one, and it will return the base power score for that pokemon
+>>>>>>> 4fb763f7b891dcfd792a553737e1a8ede165897b
 
     if cost <= 16.89:
     # Still not working fully, need to incorporate floats
@@ -128,4 +138,59 @@ def customer_afford(cost):
         print("error")
 
 
+<<<<<<< HEAD
 print(customer_afford(8.2))
+=======
+    if highest_score_choice in pokemon_first_letter_list_full:
+       return highest_score_choice
+    else:
+        while highest_score_choice not in pokemon_first_letter_list_full:
+            print("This pokemon is not in the list :( PLease try again")
+            return "x"
+
+# Retrieving the number the user typed in
+user_choice = pokemon_gen_choice()
+
+# Checking if the function returned that a number between 1-9 was not typed in, if not gets the user to try again
+while user_choice == "x":
+    user_choice = pokemon_gen_choice()
+
+endpoint = f'https://pokeapi.co/api/v2/generation/{user_choice}'
+response = requests.get(endpoint)
+data = response.json()
+pokemon_list = data['pokemon_species']
+pokemon_name_list = []
+
+# Creating a list of the names of the pokemons in that generation
+for item in pokemon_list:
+    pokemon_name_list.append(item['name'])
+    print(item['name'])
+
+# Calling function to create a list of all pokemons in the generation beginning with that first letter
+pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
+
+# If a single letter not typed in, calls the function for the user to try again (done as a while loop so this can be repeated until the user types in a letter correctly)
+while pokemon_first_letter_list_full == "x":
+    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
+
+# If the letter the user typed in returns an empty list (if there are no pokemons in that generation with that first letter), recalls the function for the user to try again
+while not pokemon_first_letter_list_full:
+    print("There are no pokemons in the generation with that first letter, please try again!")
+    pokemon_first_letter_list_full = pokemon_first_letter(user_choice, pokemon_name_list)
+
+# Calls function which gets the user to input a pokemon from the list to get weight
+weight_choice = weight_selection(pokemon_first_letter_list_full)
+
+# If the function return x which means the user typed in a pokemon not in the generation and first name list, prompts the user to try again (in a while loop so will keep repeating until the user types in a pokemon
+# in the list)
+while weight_choice == "x":
+    weight_choice = weight_selection(pokemon_first_letter_list_full)
+
+# Retrieves then prints the weight for the selected pokemon
+endpoint = f'https://pokeapi.co/api/v2/pokemon/{weight_choice}/'
+response = requests.get(endpoint)
+data = response.json()
+weight = data['weight']
+
+print(emoji.emojize(f"The weight for {weight_choice} is {weight} :thumbs_up:!"))
+>>>>>>> 4fb763f7b891dcfd792a553737e1a8ede165897b
