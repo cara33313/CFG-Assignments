@@ -2,6 +2,6 @@ This assignment is based around a library system, where a library can manage the
 
 To run this, first open the Assignment-4-SQL-Code.sql and run ALL of the SQL code. This will create a database called library_system, with two tables respectively called books and books_borrowed, and will populate the books table with some data. It will also create a stored procedure, which I will be calling later for the borrow_book endpoint. 
 
-Open config.py and change the password string to your own password, then also open app.py, db_utils.py and main.py. Hit run on app.py, then on main.py. This will show the interactive client side of the API. You may have to use pip install if any of the imports like request or MySQL controller are not already installed (these will be highlighted in red). Begin by borrowing a book from the library, which will populate the books_borrowed SQL table with some data. You can then try returning some of these books or checking the borrow history on them.
+Open the config.py file and change the password string to your own password, then also open app.py, db_utils.py and main.py. Hit run on app.py, then on main.py. This will show the interactive client side of the API. You may have to use pip install if any of the imports like request or MySQL controller are not already installed (these will be highlighted in red). Begin by borrowing a book from the library, which will populate the books_borrowed SQL table with some data. You can then try returning some of these books or checking the borrow history on them.
 
 Hope you enjoy:)
